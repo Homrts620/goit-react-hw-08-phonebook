@@ -10,6 +10,6 @@ color: #c963e8;
 font-size: 25px;
 
 &:hover {
-    color: #f08000;
+    color: #ff33;
 }
 `;

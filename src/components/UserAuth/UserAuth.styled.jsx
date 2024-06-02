@@ -7,10 +7,10 @@ display: inline-block;
 text-decoration: none;
 padding: 12px;
 font-weight: 700;
-color: #c963e8;
+color: #c3638e;
 font-size: 25px;
 
 &:hover {
-    color: #f08000;
+    color: #fcc9;
 }
 `;
