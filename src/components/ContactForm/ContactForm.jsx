@@ -1,55 +1,82 @@
+import { nanoid } from '@reduxjs/toolkit';
+import Notiflix from 'notiflix';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../redux/operations';
-import { getContacts } from '../../redux/state';
-import css from './ContactForm.module.css';
+import { addContacts } from '../../redux/contacts/operations';
+import { selectContacts } from '../../redux/contacts/selectors';
 
-const ContactForm = () => {
+const nameInputId = nanoid();
+const numberInputId = nanoid();
+
+export const ContactForm = () => {
+const [name, setName] = useState('');
+const [number, setNumber] = useState('');
+const contacts = useSelector(selectContacts);
 const dispatch = useDispatch();
-const contacts = useSelector(getContacts);
 
 const handleSubmit = e => {
     e.preventDefault();
-    const form = e.currentTarget;
-    const name = form.elements.name.value;
-    const number = form.elements.number.value;
-    const isInBase = contacts.some(
-    contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
-    const newContact = { name: name, number: number };
+};
 
-    if (!isInBase) {
-    dispatch(addContact(newContact));
-    form.reset();
-    } else {
-    alert(`${name} is in use. Try another name.`);
+const isContacts = contacts.some(
+    contact => contact.name.toLowerCase() === name.toLowerCase()
+);
+
+if (isContacts) {
+    Notiflix.Notify(`${name} is in use. Try another name. `);
+    return;
+}
+
+dispatch(addContacts({ name, number }));
+setName('');
+setNumber('');
+
+const handleChange = e => {
+    const { name, value } = e.currentTarget;
+    switch (name) {
+    case 'name':
+        setName(value);
+        break;
+    case 'number':
+        setNumber(value);
+        break;
+    default:
+        return;
     }
 };
 
 return (
-    <form onSubmit={handleSubmit} className={css.form}>
-    <label htmlFor="name" className={css.label}>
+    <>
+    <form onSubmit={handleSubmit}>
+        <label htmlFor={nameInputId}>
         Name
-    </label>
-    <input
-        type="text"
-        name="name"
-        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-        required/>
-    <label htmlFor="number" className={css.label}>
+        <input
+            type="text"
+            name="name"
+            placeholder="name"
+            value={name}
+            onChange={handleChange}
+            pattern="^[^\d]+$"
+            title="The name should contain only letters, apostrophes, hyphens, and indents"
+            required/>
+        </label>
+        <label htmlFor={numberInputId}>
         Number
-    </label>
-    <input
-        type="tel"
-        name="number"
-        pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-        required/>
-    <button type="submit" className={css.button}>
-        Add contact
-    </button>
-    </form>
+        <input
+            type="tel"
+            name="number"
+            placeholder="number"
+            value={number}
+            onChange={handleChange}
+            pattern="\+\d{11}"
+            minlength="12"
+            maxlength="12"
+            title="The phone number should start with + followed by 11 digits"
+            required/>
+        </label>
+        <button type="submit">Add contact </button>
+        </form>
+    {}
+    </>
 );
 };
-
-export default ContactForm;

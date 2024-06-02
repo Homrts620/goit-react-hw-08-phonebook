@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { addContact, deleteContact, fetchContacts } from './operations';
 
-
 const initialState = {
     items: [],
     isLoading: false,
@@ -9,9 +8,8 @@ const initialState = {
 };
 
 const contactsSlice = createSlice({
-    name: 'contacts',
-    initialState,
-
+name: 'contacts',
+initialState,
 extraReducers: builder => {
     builder
     .addCase(fetchContacts.pending, state => {

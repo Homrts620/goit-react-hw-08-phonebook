@@ -1,46 +1,59 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import ContactForm from './ContactForm/ContactForm';
-import ContactList from './ContactList/ContactList';
+import { useAuth } from 'hooks/useAuth';
+import { lazy, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Route, Routes } from 'react-router';
+import { refresh } from '../redux/auth/operations';
+import { selectIsRefreshing } from '../redux/auth/selectors';
+import { Wrapper } from './App.styled';
+import { Layout } from './Layout/Layout';
+import { PrivateRoute } from './PrivateRoute';
+import { RestrictedRoute } from './RestrictedRoute';
 
-import { fetchContacts } from '../redux/operations';
-import { getError, getIsLoading } from '../redux/state';
-import Filter from './Filter/Filter';
-import { Loader } from './Loader/Loader';
-import background from './img/background.jpeg';
-
+const Home = lazy(() => import('../pages/Home/Home'));
+const Register = lazy(() => import('../pages/Register'));
+const Login = lazy(() => import('../pages/Login'));
+const Contacts = lazy(() => import('../pages/Contacts'));
 export const App = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+  const { isRefreshing } = useAuth(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refresh());
   }, [dispatch]);
-  return (
-    <>
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 16,
-          padding: 20,
-          color: '#fff',
-          backgroundImage: `url(${background})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-        }}
-      >
-        <h1>Phonebook</h1>
-        <ContactForm />
-        <h2>Contacts</h2>
-        <Filter />
-        {isLoading && !error && <Loader />}
-        <ContactList />
-      </div>
-    </>
+  return isRefreshing ? (
+    <p>Refreshing user..</p>
+  ) : (
+    <Wrapper>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          {}
+          <Route index element={<Home />} />
+          {}
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute redirectTo="/login" component={<Register />} />
+            }
+          />
+          {}
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute redirectTo="/contacts" component={<Login />} />
+            }
+          />
+          {}
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute redirectTo="/login" component={<Contacts />} />
+            }
+          />
+        </Route>
+
+        {}
+        <Route path="*" element={<Home />} />
+      </Routes>
+    </Wrapper>
   );
 };
