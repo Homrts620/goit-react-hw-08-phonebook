@@ -6,10 +6,10 @@ display: inline-block;
 text-decoration: none;
 padding: 12px;
 font-weight: 700;
-color: #c963e8;
+color: #e493a1;
 font-size: 25px;
 
 &:hover {
-    color: #ff33;
+    color: #ff9;
 }
 `;
