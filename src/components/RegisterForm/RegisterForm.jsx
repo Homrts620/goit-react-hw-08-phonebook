@@ -47,7 +47,7 @@ return (
             type="email"
             name="email"
             placeholder="email"
-            pattern='pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"'
+            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
             title="Please enter a valid email address"
             required
             />
@@ -58,7 +58,7 @@ return (
             type="password"
             name="password"
             placeholder="password"
-            pattern="^[a-zA-Z0-9!@#$%^&*()-_=+`~[\]{}|:<>/?]+$"
+            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
             title="The password should contain only Latin letters (both uppercase and lowercase), numbers and other symbols"
             required
             />
