@@ -42,7 +42,7 @@ try {
 });
 
 export const login = createAsyncThunk(
-'user/login',
+'auth/login',
 async (credentials, thunkAPI) => {
     try {
     const response = await axios.post('/users/login', credentials);
