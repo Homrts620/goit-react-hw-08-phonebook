@@ -7,7 +7,7 @@ export const Loader = () => (
         visible={true}
         height="96"
         width="96"
-        color="#ee82ee"
+        color="#a3ff4c"
         strokeWidth="5"
         animationDuration="0.75"
         ariaLabel="rotating-lines-loading"

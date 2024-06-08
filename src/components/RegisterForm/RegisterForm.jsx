@@ -28,7 +28,7 @@ const handleSubmit = e => {
 return (
     <Section>
     <Wrapper>
-        <h2>Register, please</h2>
+        <h2>Registration</h2>
         <Form onSubmit={handleSubmit} autoComplete="off">
         <Label>
             UserName
