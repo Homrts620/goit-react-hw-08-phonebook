@@ -13,7 +13,7 @@ const clearAuthHeader = () => {
 };
 
 export const register = createAsyncThunk(
-'user/register',
+'auth/register',
 async (credentials, thunkAPI) => {
     try {
     const response = await axios.post('/users/signup', credentials);
@@ -42,7 +42,7 @@ try {
 });
 
 export const login = createAsyncThunk(
-'auth/login',
+'user/login',
 async (credentials, thunkAPI) => {
     try {
     const response = await axios.post('/users/login', credentials);
