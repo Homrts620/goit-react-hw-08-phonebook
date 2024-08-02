@@ -1,0 +1,57 @@
+.itemContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.paragraph {
+  text-align: center;
+}
+
+.button {
+  background-color: var(--color-background);
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  margin: 0 auto;
+  padding: 0.3rem;
+  width: 130px;
+}
+
+.button:hover,
+.button:focus {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  outline: none;
+}
+
+@media screen and (min-width: 768px) {
+  .text {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .paragraph:first-child::after {
+    content: ':';
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .itemContainer {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .button {
+    font-size: 16px;
+    margin-right: 0;
+  }
+}
