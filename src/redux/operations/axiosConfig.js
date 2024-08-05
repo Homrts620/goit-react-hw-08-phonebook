@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://connections-api.goit.global/docs/';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 export default axios;
