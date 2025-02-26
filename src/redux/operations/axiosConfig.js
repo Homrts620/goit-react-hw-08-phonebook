@@ -1,5 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
-axios.defaults.baseURL = 'https://connections-api.goit.global/';
+export const swagger = axios.create({
+  baseURL: "https://connections-api.goit.global/",
+});
 
-export default axios;
+export const setToken = (token) => {
+  swagger.defaults.headers.common.Authorization = Bearer ${token};
+};
+export const clearToken = () => {
+  swagger.defaults.headers.common.Authorization = ``;
+};
